@@ -1,0 +1,42 @@
+<head>
+    <title>soc</title>
+</head>
+
+<body>
+    <h1>Welcome to soc!</h1> {{> loginButtons}}
+
+
+    <form class="new-post">
+        Text:
+        <input type="text" name="text" placeholder="Caption" /> Link:
+        <input type="link" name="link" placeholder="Link" />
+        <input type="submit" value="Submit">
+    </form>
+
+
+    <ul>
+        {{#each posts}} {{> post}}
+        <ul>
+            {{#each chatsByPost _id}} {{> message}} {{/each}}
+        </ul>
+        <form class="new-chat" data-postid="{{_id}}">
+            Chat:
+            <input type="chat" name="chat" placeholder="chat" />
+        </form>
+        {{/each}}
+    </ul>
+</body>
+
+<template name="post">
+    <li>
+        <a href="{{link}}">{{text}}</a> | {{createdAt}} | {{username}} | upvotes: {{voteUp}} | downvotes: {{voteDown}}
+        <a href="#" class="vote-up" data-postid="{{_id}}">Vote Up</a>
+        <a href="#" class="vote-down" data-postid="{{_id}}">Vote Down</a>
+    </li>
+</template>
+
+<template name="message">
+    <li>
+        <p>{{username}}: {{message}}</p>
+    </li>
+</template>
